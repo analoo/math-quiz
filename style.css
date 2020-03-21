@@ -1,0 +1,23 @@
+body{
+    text-align: center;
+    width: 80%;
+    margin: auto;
+
+
+}
+
+header{
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: 'Lobster', cursive;
+    background-color: linen;
+    color: lightpink;
+    ;
+
+
+}
+main{
+    background-color: lightgray;
+    padding: 10 10 10 10;
+}
