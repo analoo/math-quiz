@@ -1,4 +1,5 @@
 body{
+    background-color: black;
     text-align: center;
     width: 80%;
     margin: auto;
@@ -10,14 +11,33 @@ header{
     margin-top: 10px;
     padding-top: 20px;
     padding-bottom: 20px;
-    font-family: 'Lobster', cursive;
-    background-color: linen;
-    color: lightpink;
+    font-family: 'Source Code Pro', monospace;
+    color: greenyellow;
     ;
 
 
 }
 main{
-    background-color: lightgray;
-    padding: 10 10 10 10;
+    background-color:slategray;
+    padding-top: 10px;
+    margin-top: 10px;
+    padding-bottom: 20px;
+
+}
+
+img {
+    width: 400px;
+
+}
+
+h2{
+    margin-top: 10px;
+    font-family: 'Source Code Pro', monospace;
+    color: white;
+}
+
+li{
+    font-family: 'Source Code Pro', monospace;
+    color: white;
+    line-height: 2;
 }
