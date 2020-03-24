@@ -3,10 +3,13 @@
 var mainEl = document.querySelector("main");
 
 var startEl = document.querySelector("#start");
+var submitEl = document.querySelector("#submit");
+
 var timerEl = document.querySelector("#timer");
 var timerBoxEl = document.querySelector("#time-box")
 var challengeEl = document.querySelector("#challenge")
 var buttonsArray = document.querySelectorAll("button")
+var nameSpan = document.querySelector("#initials");
 
 var questionEl = document.querySelector("#question");
 var answersEl = document.querySelector("#answers");
@@ -14,12 +17,12 @@ var outcomeEl = document.querySelector("#outcome");
 
 // ** Declare starting conditions ***
 var question = 0;
-var time = 60;
+var time = 20;
 var score = 0;
 var userAnswers = [];
-var scoresList = [{name: "Ana", score: 100}, {name: "Mark", score: 250}];
-console.log(scoresList); 
-// = JSON.parse(localStorage.getItem("highscores"));
+var scoresList = [];
+// JSON.parse(localStorage.getItem("highScores"))
+
 var questionBank = [];
 
 // creates start for the game
@@ -32,6 +35,9 @@ startEl.addEventListener("click", function () {
     startTimer(time);
     mainEl.style.display = "inline";
     displayQuestions();
+    scoresList = JSON.parse(localStorage.getItem("highScores"));
+    console.log(scoresList)
+    renderScores();
 
 })
 // make a question generator that creates math problems.
@@ -119,14 +125,26 @@ function checkAnswers(answer) {
 }
 
 function storeScore(name){
-    scoresList.append({name: score});
+    scoresList.push({"name": name, "score": score});
     localStorage.setItem("highScores", JSON.stringify(scoresList));
 }
 
-function displayScores(){
-   
 
-    
+
+function gameOver(){
+    alert("Game over is starting")
+    document.querySelector("#leaderboard").style.display = "inline";
+    submitEl.addEventListener("click", function(event){
+        event.preventDefault();
+        var initials = nameSpan.value;
+        storeScore(initials)
+    })
+    renderScores();
+
+
+}
+
+function renderScores(){ 
     for (let i = 0; i < scoresList.length; i++){
         var tbodyEl = document.querySelector("tbody");
         var tableRowEl = document.createElement("tr");
@@ -138,21 +156,6 @@ function displayScores(){
         tableRowEl.append(dataEl1);
         tableRowEl.append(dataEl2);
     }
-
-}
-displayScores();
-
-console.log(scoresList); 
-
-function gameOver(){
-    document.querySelector("#leaderboard").style.display = "inline";
-    var formEl = document.querySelector("#inlineFormInputName2");
-    formEl.addEventListener("submit", function(){
-        event.preventDefault();
-        var initials = formEl.nodeValue;
-        storeScore(initials);
-    })
-
 
 }
 
