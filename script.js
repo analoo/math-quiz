@@ -21,27 +21,38 @@ var time = 20;
 var score = 0;
 var userAnswers = [];
 var scoresList = [];
-// JSON.parse(localStorage.getItem("highScores"))
+var correct;
 
-var questionBank = [];
-
-// creates start for the game
+// Officially starts the game
 startEl.addEventListener("click", function () {
     event.preventDefault();
+
+    // hides and shows some page values
     startEl.style.display = "none";
     challengeEl.style.display = "none";
     timerBoxEl.style.display = "inline";
-    questionGenerator();
-    startTimer(time);
     mainEl.style.display = "inline";
-    displayQuestions();
-    scoresList = JSON.parse(localStorage.getItem("highScores"));
-    console.log(scoresList)
-    renderScores();
+
+    startTimer(time);
+    questionGenerator();
+    // displayQuestions();
 
 })
-// make a question generator that creates math problems.
+function startTimer() {
+    var timeRemaining = setInterval(function () {
+        timerEl.textContent = (time - 1);
+        time--;
 
+        if (time <= 0) {
+            clearInterval(timeRemaining);
+            mainEl.style.display = "none";
+            gameOver();
+        }
+    }, 1000)
+
+}
+
+// make a question generator that creates math problems.
 function questionGenerator(){
     var num1 = Math.floor(Math.random() * 50);
     var num2 = Math.floor(Math.random() * 25);
@@ -67,51 +78,19 @@ function questionGenerator(){
         answerIndex = options.indexOf(answer) ;
     }
     
-    return {q: q, a: options, correct: answerIndex};
 
+    questionEl.textContent = q;
+    buttonsArray[1].textContent = options[0];
+    buttonsArray[2].textContent = options[1];
+    buttonsArray[3].textContent = options[2];
+    buttonsArray[4].textContent = options[3];
+    correct = answerIndex;
 }
 
-function startTimer() {
-    var timeRemaining = setInterval(function () {
-        timerEl.textContent = (time - 1);
-        time--;
-        console.log(time);
-
-        if (time <= 0) {
-            clearInterval(timeRemaining);
-            mainEl.style.display = "none";
-            console.log("You failed!");
-            gameOver();
-        }
-    }, 1000)
-
-}
-
-function displayQuestions() {
-    questionBank = questionGenerator();
-     questionEl.textContent = questionBank.q;
-     buttonsArray[1].textContent = questionBank.a[0];
-     buttonsArray[2].textContent = questionBank.a[1];
-     buttonsArray[3].textContent = questionBank.a[2];
-     buttonsArray[4].textContent = questionBank.a[3];
- 
- }
-
-answersEl.addEventListener("click", function (event) {
+answersEl.addEventListener("click", function checkAnswers(event) {
     event.preventDefault();
     var answer = event.target.id;
-    checkAnswers(answer);
-    console.log(checkAnswers);
-
-    question++;
-    displayQuestions();
-    console.log(answer);
-    console.log(question);
-
-});
-
-function checkAnswers(answer) {
-    if (questionBank.correct == answer.charAt(1)){
+    if (correct == answer.charAt(1)){
         score +=1
         outcomeEl.textContent = "Correct!"
     }
@@ -121,30 +100,35 @@ function checkAnswers(answer) {
         outcomeEl.textContent = "Wrong"
 
     }
+    questionGenerator();
 
-}
-
-function storeScore(name){
-    scoresList.push({"name": name, "score": score});
-    localStorage.setItem("highScores", JSON.stringify(scoresList));
-}
-
+});
 
 
 function gameOver(){
     alert("Game over is starting")
     document.querySelector("#leaderboard").style.display = "inline";
+    document.querySelector("#leader-list").style.display = "inline";
+
+    scoresList = JSON.parse(localStorage.getItem("highScores"));
+    renderScores();
     submitEl.addEventListener("click", function(event){
         event.preventDefault();
         var initials = nameSpan.value;
         storeScore(initials)
+        renderScores()
     })
-    renderScores();
+}
 
-
+function storeScore(name){
+    scoresList.push({"name": name, "score": score});
+    localStorage.setItem("highScores", JSON.stringify(scoresList));
+    var tbodyEl = document.querySelector("tbody");
+    tbodyEl.childNodes.remove();
 }
 
 function renderScores(){ 
+
     for (let i = 0; i < scoresList.length; i++){
         var tbodyEl = document.querySelector("tbody");
         var tableRowEl = document.createElement("tr");
