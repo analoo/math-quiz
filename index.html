@@ -18,15 +18,15 @@
     <header class="jumbotron jumbotron-fluid">
         <div class="container">
             <h1 class="display-4"><span class="math">MA</span>RA<span class="math">TH</span>ON</h1>
-            <p class="lead" id="challenge">Think you have what it takes to prove you are a real mathlete? <br> Answer as many questions as you can in 100 seconds</p>
+            <p class="lead" id="challenge">Think you have what it takes to prove you are a real mathlete? <br> Answer as many questions as you can in 60 seconds</p>
             <p class="lead" id="time-box" style="display: none;">Time remaining: <span id = "timer"></span></p>
             <button id="start" type="button" class="btn btn-success">Start</button>
         </div>
     </header>
     <main style="display: none">
         <div class="row justify-content-md-center" id="question-display" >
-            <div class="col-md-8 col-sm-12 border">
-                <p class="font-weight-bold" id="question">Placeholder for Question</p>
+            <div class="col-md-8 col-sm-12 border" style = "background-color: lightblue";>
+                <p class="font-weight-bold" id="question"></p>
                 <div class="list-group" id="answers">
                     <button type="button" class="list-group-item list-group-item-action" id="a0"></button>
                     <button type="button" class="list-group-item list-group-item-action" id="a1"></button>
@@ -48,15 +48,15 @@
             <div class="col-md-8 col-sm-12 border">
                 <p class="font-weight-bold">Enter your Initials for the Leaderboard</p>
                 <form class="form-inline">
-                    <label class="sr-only" for="inlineFormInputName2" >Name</label>
+                    <label class="sr-only" for="inlineFormInputName2">Name</label>
                     <input type="text" class="form-control mb-2 mr-sm-2" id="initials" placeholder="e.g. JXD">
-                    <button type="submit" class="btn btn-primary mb-2" id="submit">Submit</button>
+                    <button type="submit" class="btn btn-success mb-2" id="submit">Submit</button>
                   </form>
                 </div>
             </div>
         </div>
     </br>
-        <div class="row justify-content-md-center" id="leader-list" style = "">
+        <div class="row justify-content-md-center" id="leader-list" style = "display: none">
             <div class="col-md-8 col-sm-12 border">
                 <p class="font-weight-bold" id="leaderboard-word">Leaderboard</p>
                 <table class="table"> 

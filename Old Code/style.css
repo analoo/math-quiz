@@ -1,0 +1,55 @@
+body{
+    background-color: black;
+    text-align: center;
+    width: 80%;
+    margin: auto;
+
+
+}
+
+header{
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-family: 'Source Code Pro', monospace;
+    color: greenyellow;
+    ;
+
+
+}
+main{
+    padding-top: 10px;
+    margin-top: 10px;
+
+}
+
+ol{
+    margin: 30px auto 0;
+    width: 30%;
+
+}
+img {
+    width: 400px;
+
+}
+
+h2{
+    margin-top: 10px;
+    font-family: 'Source Code Pro', monospace;
+    color: white;
+}
+
+li{
+    font-family: 'Source Code Pro', monospace;
+    color: greenyellow;
+    background: black;
+    line-height: 2;
+ 
+
+}
+
+p{
+    background-color: black;
+    color: white;
+    line-height: 3;
+}
