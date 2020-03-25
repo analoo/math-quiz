@@ -5,6 +5,8 @@ var mainEl = document.querySelector("main");
 var startEl = document.querySelector("#start");
 var restartEl = document.querySelector("#restart");
 var submitEl = document.querySelector("#submit");
+var clearEl = document.querySelector("#clear");
+
 
 
 var timerEl = document.querySelector("#timer");
@@ -53,7 +55,8 @@ startEl.addEventListener("click", function () {
     startTimer(time);
     questionGenerator();
 
-})
+});
+
 function startTimer() {
     var timeRemaining = setInterval(function () {
         timerEl.textContent = (time - 1);
@@ -126,24 +129,26 @@ function gameOver() {
     timerBoxEl.style.display = "none";
     challengeEl.style.display = "inline";
     challengeEl.textContent = "GAME OVER. Your final scores is: " + score;
-    submitEl.addEventListener("click", function (event) {
-        event.preventDefault();
-        var initials = nameSpan.value;
-        nameSpan.value = "";
-        storeScore(initials)
-        document.querySelector("#leaderboard").style.display = "none";
-        restartEl.style.display = "inline";
-
-
-    })
-
-    restartEl.addEventListener("click", function (event) {
-        event.preventDefault();
-        reSetGame();
-        challengeEl.textContent = "Think you have what it takes to prove you are a real mathlete?"
-    })
 
 }
+
+submitEl.addEventListener("click", function (event) {
+    event.preventDefault();
+    var initials = nameSpan.value;
+    nameSpan.value = "";
+    storeScore(initials)
+    document.querySelector("#leaderboard").style.display = "none";
+    restartEl.style.display = "inline";
+
+
+})
+
+restartEl.addEventListener("click", function (event) {
+    event.preventDefault();
+    reSetGame();
+    challengeEl.textContent = "Think you have what it takes to prove you are a real mathlete?"
+})
+
 
 function storeScore(name) {
     scoresList.push({ "name": name, "score": score });
@@ -188,15 +193,12 @@ function reSetGame() {
     time = 60;
     score = 0;
 
-    if (JSON.parse(localStorage.getItem("highScores")) == null) {
-        localStorage.setItem("highScores", JSON.stringify(scoresList));
-    }
-
-    else {
-        scoresList = JSON.parse(localStorage.getItem("highScores"))
-    }
-
 }
 
 
-
+clearEl.addEventListener("click", function (event){
+    event.preventDefault();
+    localStorage.removeItem("highScores");
+    clearScoreDispay();
+    scoresList = [];
+})
