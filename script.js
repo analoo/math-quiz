@@ -184,6 +184,7 @@ function reSetGame() {
     mainEl.style.display = "none";
     startEl.style.display = "inline";
     challengeEl.style.display = "inline";
+    outcomeEl.textContent = "";
     time = 60;
     score = 0;
 
