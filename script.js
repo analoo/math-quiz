@@ -84,13 +84,11 @@ function questionGenerator(){
     if (options.indexOf(answer) === -1){
         answerIndex = Math.floor(Math.random() * 4);
         options[answerIndex] = answer;
-
     }
 
     else if (options.indexOf(answer) > -1){
         answerIndex = options.indexOf(answer) ;
     }
-    
 
     questionEl.textContent = q;
     buttonsArray[1].textContent = options[0];
@@ -158,5 +156,7 @@ function renderScores(){
     }
 
 }
+
+console.log("7:11")
 
 
