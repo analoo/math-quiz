@@ -20,8 +20,18 @@ var question = 0;
 var time = 20;
 var score = 0;
 var userAnswers = [];
-var scoresList = [];
 var correct;
+var scoresList = [];
+
+if(JSON.parse(localStorage.getItem("highScores"))==null){
+    localStorage.setItem("highScores", "");
+}
+
+else{
+    scoresList = JSON.parse(localStorage.getItem("highScores"))
+}
+
+
 
 // Officially starts the game
 startEl.addEventListener("click", function () {
@@ -35,7 +45,8 @@ startEl.addEventListener("click", function () {
 
     startTimer(time);
     questionGenerator();
-    // displayQuestions();
+    renderScores();
+
 
 })
 function startTimer() {
@@ -106,31 +117,39 @@ answersEl.addEventListener("click", function checkAnswers(event) {
 
 
 function gameOver(){
-    alert("Game over is starting")
     document.querySelector("#leaderboard").style.display = "inline";
-    document.querySelector("#leader-list").style.display = "inline";
-
-    scoresList = JSON.parse(localStorage.getItem("highScores"));
-    renderScores();
+    timerBoxEl.style.display = "none";
+    challengeEl.style.display = "inline";
+    challengeEl.textContent = "GAME OVER. Your final scores is: " + score;
     submitEl.addEventListener("click", function(event){
         event.preventDefault();
         var initials = nameSpan.value;
+        nameSpan.value = "";
         storeScore(initials)
-        renderScores()
     })
 }
 
 function storeScore(name){
     scoresList.push({"name": name, "score": score});
     localStorage.setItem("highScores", JSON.stringify(scoresList));
-    var tbodyEl = document.querySelector("tbody");
-    tbodyEl.childNodes.remove();
+    renderScores()
 }
 
 function renderScores(){ 
+    document.querySelector("#leader-list").style.display = "inline";
+    var tbodyEl = document.querySelector("tbody");
+    // remove scores from display
 
-    for (let i = 0; i < scoresList.length; i++){
-        var tbodyEl = document.querySelector("tbody");
+    if(tbodyEl.hasChildNodes()){
+        while(tbodyEl.childElementCount >= 0){
+            tbodyEl.childNodes[1].remove();
+            console.log("Deleted something");
+            console.log(tbodyEl.childElementCount)
+        }
+    }
+
+    else {
+    for(let i = 0; i < scoresList.length; i++){
         var tableRowEl = document.createElement("tr");
         var dataEl1 = document.createElement("td");
         var dataEl2 = document.createElement("td");
@@ -140,6 +159,7 @@ function renderScores(){
         tableRowEl.append(dataEl1);
         tableRowEl.append(dataEl2);
     }
+}
 
 }
 
